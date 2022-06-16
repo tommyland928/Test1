@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <script type="text/javascript" language="javascript">
+        window.onload = function() {
+        
+            detail = document.getElementById("Select2");
+
+            group = document.getElementById("Select1");
+        
+            group.onchange = changeDetail;
+        
+        }
+
+        function changeDetail() {
+
+            var changedGroup = group.value;
+
+            if (changedGroup == "SCHOPS") {
+
+                setSCHOPS();
+
+            }else if (changedGroup == "どっかいこーぜ") {
+                setDokka();
+            }else if(changedGroup == ""){
+                setNothing();
+            }
+        }
+
+        function setNothing() {
+            detail.textContent = null;
+
+            var Nothing = [
+                {cd:"", label:"------"}
+            ];
+            Nothing.forEach(function(value){
+                var op = document.createElement("option");
+
+                op.value = value.cd;
+
+                op.text = value.label;
+
+                detail.appendChild(op);
+            });
+        }
+
+        function setSCHOPS() {
+            detail.textContent = null;
+
+                var SCHOPS = [
+                    {cd:"", label:"------"},
+
+                    <% @member.where(group:"SCHOPS").each do |t| %>
+                        {cd: "<%= t.name %>", label: "<%= t.name %>"},
+                    <% end %>
+                ];
+
+
+            SCHOPS.forEach(function(value) {
+
+                var op = document.createElement("option");
+
+                op.value = value.cd;
+
+                op.text = value.label;
+
+                detail.appendChild(op);
+
+            });
+
+        }
+
+        function setDokka() {
+            detail.textContent = null;
+
+            var Dokka = [
+
+                {cd:"", label:"------"},
+
+                <% @member.where(group:"どっかいこーぜ").each do |t| %>
+                    {cd: "<%= t.name %>", label: "<%= t.name %>"},
+                <% end %>
+
+            ];
+            Dokka.forEach(function(value) {
+
+                var op = document.createElement("option");
+
+                op.value = value.cd;
+
+                op.text = value.label;
+
+                detail.appendChild(op);
+
+            });
+
+        }
+      
+
+    </script>
+    </head>
+    <body>
+
+
+    
+
+        <h1>送信フォーム</h1>
+
+
+        <div class="sending">
+            <%= form_tag({ :controller => 'chips', :action => 'store' },{ :method => :post}) do %>
+                <div class = "item1">
+                <%= label_tag :グループ %>
+                <select name="group" class="formBox1" id="Select1">
+                    <option value="">------</option>
+                    <option value="SCHOPS">SCHOPS</option>
+                    <option value="どっかいこーぜ">どっかいこーぜ</option>
+                </select>
+                </div>
+                <div class = "item2">
+                    <%= label_tag :名前 %>
+                    <select name="name" class="formBox1" id = "Select2">
+                        <option value="">------</option>
+                    </select>
+                </div>
+                <div class = "item3">
+                <%= label_tag :初期点数 %>
+                <%= number_field_tag("first","1000",{step:100, class: "formBox"}) %>
+                </div>
+                <div class = "item4">
+                <%= label_tag :賭け額 %>
+                <%= number_field_tag("bet", "", {class: "formBox"}) %>
+                </div>
+                <div class = "item5">
+                <%= label_tag :緑 %>
+                <%= number_field_tag("green", "", {class: "formBox"}) %>
+                </div>
+                <div class = "item6">
+                <%=  label_tag :青 %>
+                <%=  number_field_tag("blue", "", {class: "formBox"}) %>
+                </div>
+                <div class = "item7">
+                <%=  label_tag :赤 %>
+                <%=  number_field_tag("red", "", {class: "formBox"}) %>
+                </div>
+                <div class = "item8">
+                <%=  label_tag :黒 %>
+                <%=  number_field_tag("black", "", {class: "formBox"}) %>
+                </div>
+                <div class = "item9">
+                <%= submit_tag "送信", class: "submit" %>
+                </div>
+            <% end %>
+        </div>
+
+        <div id = "output"><p>apr</p></div>
+
+    </body>
+</html>
+
+
+

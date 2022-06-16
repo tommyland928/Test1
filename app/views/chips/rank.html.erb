@@ -1,0 +1,26 @@
+<h1>ランキング</h1>
+<div class = "new">
+    <%= link_to "新規送信", chips_path %>
+</div>
+<div class="rank-container">
+    <p>名前 勝ち負け</p>
+      <% @person.each do |t| %>
+    <div class="ranking">
+        <%= t.name %>
+        <% if t.score > 0 then %>
+            <%= "+".concat(t.score.to_s) %>
+        <% else %>
+            <%= t.score %>
+        <% end %>
+    </div>
+  <% end %>
+</div>
+<!--
+    <%= form_tag({ :controller => 'chips', :action => 'save' },{ :method => :post}) do %>
+        <%= submit_tag "データ登録" %>
+    <% end %>
+-->
+
+
+
+

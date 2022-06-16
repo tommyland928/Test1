@@ -1,0 +1,11 @@
+<h1>GeekTwitter</h1>
+<h3>Tweet一覧</h3>
+<%= link_to "新規投稿へ", tweets_new_path %>
+<div class="tweets-container">
+  <% @tweets.each do |t| %>
+    <div class="tweet">
+      <%= t.body %>
+      <%= t.created_at %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,13 @@
+<h1>総合ランキング</h1>
+<div class="rank-container">
+  <% @member.each do |t| %>
+    <div class="ranking">
+        <%= t.name %>
+        <% if t.score > 0 then %>
+            <%= "+".concat(t.score.to_s) %>
+        <% else %>
+            <%= t.score %>
+        <% end %>
+    </div>
+  <% end %>
+</div>
